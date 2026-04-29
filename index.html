@@ -3,16 +3,77 @@
 <head>
     <title>Hey</title>
     <style>
-        body {margin:0;background:linear-gradient(to bottom,#ff758c,#ff7eb3);display:flex;justify-content:center;align-items:center;height:100vh;flex-direction:column;color:white;font-family:Arial;}
+        body {
+            margin:0;
+            background:linear-gradient(to bottom,#ff758c,#ff7eb3);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            flex-direction:column;
+            color:white;
+            font-family:Arial;
+        }
+
         h1 {font-size:4em;}
         .heart {font-size:250px;animation:beat 1s infinite;}
-        @keyframes beat {0%,100%{transform:scale(1);}50%{transform:scale(1.2);}}
-        a {margin-top:30px;padding:15px 25px;background:white;color:#ff4d6d;text-decoration:none;border-radius:25px;font-size:1.2em;}
+
+        @keyframes beat {
+            0%,100%{transform:scale(1);}
+            50%{transform:scale(1.2);}
+        }
+
+        a {
+            margin-top:30px;
+            padding:15px 25px;
+            background:white;
+            color:#ff4d6d;
+            text-decoration:none;
+            border-radius:25px;
+            font-size:1.2em;
+        }
+
+        /* Splash screen */
+        #splash {
+            position:fixed;
+            width:100%;
+            height:100%;
+            background:#000;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            z-index:9999;
+            transition:opacity 1s ease;
+        }
+
+        #splash img {
+            max-width:90%;
+            max-height:90%;
+        }
+
+        .fade-out {
+            opacity:0;
+            pointer-events:none;
+        }
     </style>
 </head>
 <body>
+
+<!-- Splash Screen -->
+<div id="splash">
+    <img src="your-image.png" alt="Splash Image">
+</div>
+
 <h1>Hey❤Seatshogang Moseri</h1>
 <div class="heart">❤️</div>
 <a href="story.html">Continue →</a>
+
+<script>
+    // After 10 seconds, fade out splash screen
+    setTimeout(function() {
+        document.getElementById("splash").classList.add("fade-out");
+    }, 10000);
+</script>
+
 </body>
 </html>

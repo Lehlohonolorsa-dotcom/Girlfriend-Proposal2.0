@@ -3,26 +3,167 @@
 <head>
     <title>Question ❤️</title>
     <style>
-        body {text-align:center;font-family:Arial;background:#ffd6e0;padding-top:100px;}
-        h1 {font-size:2.5em;}
-        .btn {padding:15px 25px;font-size:1.2em;border:none;border-radius:25px;cursor:pointer;margin:20px;}
+        body {
+            margin:0;
+            text-align:center;
+            font-family:Arial;
+            padding-top:100px;
+            overflow:hidden;
+            color:white;
+
+            background:linear-gradient(270deg, #ff758c, #ff7eb3, #6a11cb, #2575fc);
+            background-size:800% 800%;
+            animation:gradientMove 10s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% {background-position:0% 50%;}
+            50% {background-position:100% 50%;}
+            100% {background-position:0% 50%;}
+        }
+
+        h1 {
+            font-size:2.5em;
+            animation:fadeSlide 2s ease forwards;
+        }
+
+        @keyframes fadeSlide {
+            from {opacity:0; transform:translateY(30px);}
+            to {opacity:1; transform:translateY(0);}
+        }
+
+        .btn {
+            padding:15px 25px;
+            font-size:1.2em;
+            border:none;
+            border-radius:25px;
+            cursor:pointer;
+            margin:20px;
+            transition:transform 0.2s;
+        }
+
+        .btn:hover {
+            transform:scale(1.1);
+        }
+
         #yes {background:#ff4d6d;color:white;}
-        #no {background:grey;color:white;position:absolute;}
+        #no {
+            background:grey;
+            color:white;
+            position:absolute;
+        }
+
+        /* Eyes (top corners) */
+        .eye {
+            width:60px;
+            height:60px;
+            background:white;
+            border-radius:50%;
+            position:fixed;
+        }
+
+        .eye-left { top:20px; left:20px; }
+        .eye-right { top:20px; right:20px; }
+
+        .pupil {
+            width:20px;
+            height:20px;
+            background:black;
+            border-radius:50%;
+            position:absolute;
+            top:20px;
+            left:20px;
+        }
+
+        /* Face at bottom */
+        .face {
+            position:fixed;
+            bottom:30px;
+            left:50%;
+            transform:translateX(-50%);
+            font-size:50px;
+            transition:0.3s;
+        }
+
     </style>
 </head>
+
 <body>
+
+<!-- Eyes -->
+<div class="eye eye-left"><div class="pupil" id="p1"></div></div>
+<div class="eye eye-right"><div class="pupil" id="p2"></div></div>
+
 <h1>Will you be my girlfriend? ❤️</h1>
-<button id="yes" class="btn" onclick="yesClick()">YES 😍</button>
-<button id="no" class="btn" onmouseover="moveButton()">NO 😅</button>
+
+<button id="yes" class="btn" 
+    onclick="yesClick()" 
+    onmouseover="happyFace()" 
+    onmouseout="normalFace()">
+    YES 😍
+</button>
+
+<button id="no" class="btn" 
+    onmouseover="moveButton(); sadFace()" 
+    onmouseout="normalFace()">
+    NO 😅
+</button>
+
+<!-- Face expression -->
+<div class="face" id="face">😐</div>
+
 <script>
 function moveButton(){
-let btn=document.getElementById("no");
-let x=Math.random()*window.innerWidth*0.8;
-let y=Math.random()*window.innerHeight*0.8;
-btn.style.left=x+"px";
-btn.style.top=y+"px";
+    let btn=document.getElementById("no");
+    let x=Math.random()*window.innerWidth*0.8;
+    let y=Math.random()*window.innerHeight*0.8;
+    btn.style.left=x+"px";
+    btn.style.top=y+"px";
 }
-function yesClick(){window.location.href="congrats.html";}
+
+/* Eye tracking */
+document.addEventListener("mousemove", function(e){
+    let btn = document.getElementById("no");
+    let rect = btn.getBoundingClientRect();
+
+    let btnX = rect.left + rect.width/2;
+    let btnY = rect.top + rect.height/2;
+
+    moveEye("p1", btnX, btnY);
+    moveEye("p2", btnX, btnY);
+});
+
+function moveEye(id, x, y){
+    let eye = document.getElementById(id);
+    let rect = eye.parentElement.getBoundingClientRect();
+
+    let dx = x - (rect.left + rect.width/2);
+    let dy = y - (rect.top + rect.height/2);
+
+    let angle = Math.atan2(dy, dx);
+
+    let radius = 15;
+    eye.style.left = 20 + Math.cos(angle)*radius + "px";
+    eye.style.top = 20 + Math.sin(angle)*radius + "px";
+}
+
+/* Face reactions */
+function happyFace(){
+    document.getElementById("face").textContent = "😊";
+}
+
+function sadFace(){
+    document.getElementById("face").textContent = "😢";
+}
+
+function normalFace(){
+    document.getElementById("face").textContent = "😐";
+}
+
+function yesClick(){
+    window.location.href="congrats.html";
+}
 </script>
+
 </body>
 </html>

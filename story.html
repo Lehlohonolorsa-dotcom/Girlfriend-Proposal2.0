@@ -3,11 +3,127 @@
 <head>
     <title>Our Story</title>
     <style>
-        body {font-family:Arial;text-align:center;background:#ffe0e9;padding:20px;}
-        .gallery img {width:250px;height:300px;margin:10px;border-radius:15px;object-fit:cover;}
-        a {display:inline-block;margin-top:20px;padding:15px 25px;background:#ff4d6d;color:white;text-decoration:none;border-radius:25px;}
+        body {
+            font-family: Arial;
+            text-align: center;
+            padding: 20px;
+            animation: bgChange 8s infinite alternate;
+            color: white;
+            overflow-x: hidden;
+        }
 
-        /* Animation added below */
+        /* Background animation */
+        @keyframes bgChange {
+            0% { background: #000000; }
+            25% { background: #1a1a00; }
+            50% { background: #333300; }
+            75% { background: #666600; }
+            100% { background: #999900; }
+        }
+
+        /* Teddy movement */
+        .teddy {
+            position: absolute;
+            top: 10px;
+            left: -100px;
+            font-size: 60px;
+            animation: walkPause 12s linear infinite;
+        }
+
+        @keyframes walkPause {
+            0% { left: -100px; }
+            30% { left: 40%; }
+            50% { left: 40%; }
+            100% { left: 110%; }
+        }
+
+        /* Wave */
+        .teddy span {
+            display: inline-block;
+            animation: wave 1s ease-in-out infinite;
+            animation-delay: 3.5s;
+        }
+
+        @keyframes wave {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(-15deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        /* Main heart drop */
+        .heart {
+            position: absolute;
+            top: 70px;
+            left: 42%;
+            font-size: 30px;
+            opacity: 0;
+            animation: dropHeart 12s linear infinite;
+        }
+
+        @keyframes dropHeart {
+            0% { opacity: 0; transform: translateY(0); }
+            30% { opacity: 0; }
+            40% { opacity: 1; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(80px); }
+            60% { opacity: 0; transform: translateY(120px); }
+            100% { opacity: 0; }
+        }
+
+        /* Floating hearts */
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            animation: floatUp 6s ease-in infinite;
+        }
+
+        .heart1 { left: 40%; animation-delay: 5s; }
+        .heart2 { left: 45%; animation-delay: 5.5s; }
+        .heart3 { left: 50%; animation-delay: 6s; }
+        .heart4 { left: 43%; animation-delay: 6.5s; }
+        .heart5 { left: 48%; animation-delay: 7s; }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(0.8);
+            }
+            20% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-150px) scale(1.2);
+            }
+        }
+
+        .gallery img {
+            width: 250px;
+            height: 300px;
+            margin: 10px;
+            border-radius: 15px;
+            object-fit: cover;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+            z-index: 2;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 25px;
+            background: #ff4d6d;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+        }
+
         p {
             opacity: 0;
             transform: translateY(30px);
@@ -22,29 +138,48 @@
         }
     </style>
 </head>
+
 <body>
+
+<div class="teddy"><span>🧸</span></div>
+
+<div class="heart">💖</div>
+
+<!-- Floating hearts -->
+<div class="floating-heart heart1">💗</div>
+<div class="floating-heart heart2">💖</div>
+<div class="floating-heart heart3">💕</div>
+<div class="floating-heart heart4">💘</div>
+<div class="floating-heart heart5">💓</div>
+
 <h1>Our Story 💖</h1>
-</hr>
-<p>It all started on Good Friday, April 3rd, 2026 — a day I thought would just be about church and responsibilities.
+<hr>
 
-I was working at the gate when I first saw her. I didn’t speak to her then, but I remember noticing her immediately — something about her just stood out. Later, I went to her brother, Juju, and casually told him that one of his cousins was my type. I didn’t think much of it at the time, and I went back to my church duties like normal.
+<p>
+It all started on Good Friday, April 3rd, 2026 — a day I thought would just be about church and responsibilities.<br><br>
 
-Not long after, she came up to me with her sister. From the start, she was bold — asking me a lot of questions, trying to get to know me. I was a bit caught off guard, but it felt natural talking to her.
+I was working at the gate when I first saw her. I didn’t speak to her then, but I remember noticing her immediately — something about her just stood out. Later, I went to her brother, Juju, and casually told him that one of his cousins was my type. I didn’t think much of it at the time, and I went back to my church duties like normal.<br><br>
 
-Then came the moment that confused me — she somehow got makeup on my shirt. I remember thinking, “Okay… why would you do that?” It felt suspicious, but also kind of funny looking back.
+Not long after, she came up to me with her sister. From the start, she was bold — asking me a lot of questions, trying to get to know me. I was a bit caught off guard, but it felt natural talking to her.<br><br>
 
-As the day went on, we ended up spending most of it together. At some point, we were walking around picking up trash, and surprisingly, that became one of my favorite parts of the day. The conversations just flowed.
+Then came the moment that confused me — she somehow got makeup on my shirt. I remember thinking, “Okay… why would you do that?” It felt suspicious, but also kind of funny looking back.<br><br>
 
-Then her stubborn side came out — she refused to wear her sandals because she said her feet were tired. So there I was, walking around carrying her sandals for her. And honestly, I didn’t even mind.
+As the day went on, we ended up spending most of it together. At some point, we were walking around picking up trash, and surprisingly, that became one of my favorite parts of the day. The conversations just flowed.<br><br>
 
-The funny thing is, I wasn’t looking for a relationship at all. I had already decided I wasn’t interested in anything like that. But somehow, she found me in that exact space and slowly opened my heart again.
+Then her stubborn side came out — she refused to wear her sandals because she said her feet were tired. So there I was, walking around carrying her sandals for her. And honestly, I didn’t even mind.<br><br>
 
-What I thought would be just another Good Friday turned into the beginning of something I didn’t expect — something real.</p></hr>
+The funny thing is, I wasn’t looking for a relationship at all. I had already decided I wasn’t interested in anything like that. But somehow, she found me in that exact space and slowly opened my heart again.<br><br>
+
+What I thought would be just another Good Friday turned into the beginning of something I didn’t expect — something real.
+</p>
+
 <div class="gallery">
-<img src="Sea1.jpeg">
-<img src="Sea2.jpeg">
-<img src="Sea3.jpeg">
+    <img src="Sea1.jpeg">
+    <img src="Sea2.jpeg">
+    <img src="Sea3.jpeg">
 </div>
+
 <a href="question.html">Next →</a>
+
 </body>
 </html>

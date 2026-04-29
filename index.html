@@ -5,26 +5,98 @@
     <style>
         body {
             margin:0;
-            background:linear-gradient(to bottom,#ff758c,#ff7eb3);
+            font-family:Arial;
+            overflow:hidden;
+            background:linear-gradient(270deg, #ff758c, #ff7eb3, #6a11cb, #2575fc);
+            background-size:800% 800%;
+            animation:gradientMove 10s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% {background-position:0% 50%;}
+            50% {background-position:100% 50%;}
+            100% {background-position:0% 50%;}
+        }
+
+        /* Splash */
+        #splash {
+            position:fixed;
+            width:100%;
+            height:100%;
+            z-index:9999;
+            background:transparent;
+            transition:opacity 1.5s ease;
+        }
+
+        .fade-out {
+            opacity:0;
+            pointer-events:none;
+        }
+
+        /* Main layout */
+        #main {
             display:flex;
             justify-content:center;
             align-items:center;
             height:100vh;
             flex-direction:column;
             color:white;
-            font-family:Arial;
+        }
+
+        /* Hidden initially */
+        h1, .teddy, a {
+            opacity:0;
+            transform:translateY(30px);
+        }
+
+        /* H1 animation */
+        h1.show {
+            animation:fadeSlide 1.5s ease forwards;
+        }
+
+        /* Teddy animation */
+        .teddy.show {
+            animation:fadeSlide 1.5s ease forwards;
+        }
+
+        /* Button animation */
+        a.show {
+            animation:fadeSlide 1.5s ease forwards;
+        }
+
+        @keyframes fadeSlide {
+            to {
+                opacity:1;
+                transform:translateY(0);
+            }
         }
 
         h1 {font-size:4em;}
-        .heart {font-size:250px;animation:beat 1s infinite;}
+
+        .heart {
+            font-size:200px;
+            animation:beat 1s infinite;
+        }
 
         @keyframes beat {
             0%,100%{transform:scale(1);}
             50%{transform:scale(1.2);}
         }
 
+        /* Teddy (simple emoji animation) */
+        .teddy {
+            font-size:100px;
+            margin:20px 0;
+            animation:bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%,100%{transform:translateY(0);}
+            50%{transform:translateY(-15px);}
+        }
+
         a {
-            margin-top:30px;
+            margin-top:20px;
             padding:15px 25px;
             background:white;
             color:#ff4d6d;
@@ -32,46 +104,38 @@
             border-radius:25px;
             font-size:1.2em;
         }
-
-        /* Splash screen */
-        #splash {
-            position:fixed;
-            width:100%;
-            height:100%;
-            background:#000;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            z-index:9999;
-            transition:opacity 1s ease;
-        }
-
-        #splash img {
-            max-width:90%;
-            max-height:90%;
-        }
-
-        .fade-out {
-            opacity:0;
-            pointer-events:none;
-        }
     </style>
 </head>
 <body>
 
-<!-- Splash Screen -->
-<div id="splash">
-    <img src="image.png" alt="Splash Image">
+<div id="splash"></div>
+
+<div id="main">
+    <h1 id="title">Hey❤Seatshogang Moseri</h1>
+    <div class="heart">❤️</div>
+    <div class="teddy" id="teddy">🧸</div>
+    <a href="story.html" id="btn">Continue →</a>
 </div>
 
-<h1>Hey❤Seatshogang Moseri</h1>
-<div class="heart">❤️</div>
-<a href="story.html">Continue →</a>
-
 <script>
-    // After 10 seconds, fade out splash screen
-    setTimeout(function() {
+    setTimeout(() => {
         document.getElementById("splash").classList.add("fade-out");
+
+        // Show H1 first
+        setTimeout(() => {
+            document.getElementById("title").classList.add("show");
+        }, 500);
+
+        // Then teddy
+        setTimeout(() => {
+            document.getElementById("teddy").classList.add("show");
+        }, 2000);
+
+        // Then button
+        setTimeout(() => {
+            document.getElementById("btn").classList.add("show");
+        }, 3500);
+
     }, 10000);
 </script>
 

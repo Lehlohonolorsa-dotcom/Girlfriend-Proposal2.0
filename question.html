@@ -14,6 +14,13 @@
             background:linear-gradient(270deg, #ff758c, #ff7eb3, #6a11cb, #2575fc);
             background-size:800% 800%;
             animation:gradientMove 10s ease infinite;
+            transition: background 1s ease;
+        }
+
+        /* Light background after YES */
+        .light-bg {
+            background:linear-gradient(270deg, #ffdde1, #ee9ca7, #fbc2eb, #a6c1ee);
+            background-size:800% 800%;
         }
 
         @keyframes gradientMove {
@@ -53,36 +60,58 @@
             position:absolute;
         }
 
-        /* Eyes (top corners) */
-        .eye {
-            width:60px;
-            height:60px;
-            background:white;
-            border-radius:50%;
+        /* Eye pairs */
+        .eye-group {
             position:fixed;
+            display:flex;
+            gap:10px;
         }
 
-        .eye-left { top:20px; left:20px; }
-        .eye-right { top:20px; right:20px; }
+        .left-eyes { top:20px; left:20px; }
+        .right-eyes { top:20px; right:20px; }
+
+        .eye {
+            width:50px;
+            height:50px;
+            background:white;
+            border-radius:50%;
+            position:relative;
+        }
 
         .pupil {
-            width:20px;
-            height:20px;
+            width:15px;
+            height:15px;
             background:black;
             border-radius:50%;
             position:absolute;
-            top:20px;
-            left:20px;
+            top:17px;
+            left:17px;
         }
 
-        /* Face at bottom */
+        /* Face */
         .face {
             position:fixed;
             bottom:30px;
             left:50%;
             transform:translateX(-50%);
             font-size:50px;
-            transition:0.3s;
+        }
+
+        /* Confetti */
+        .confetti {
+            position:fixed;
+            width:10px;
+            height:10px;
+            background:red;
+            top:0;
+            animation:fall 3s linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform:translateY(100vh) rotate(360deg);
+                opacity:0;
+            }
         }
 
     </style>
@@ -91,8 +120,15 @@
 <body>
 
 <!-- Eyes -->
-<div class="eye eye-left"><div class="pupil" id="p1"></div></div>
-<div class="eye eye-right"><div class="pupil" id="p2"></div></div>
+<div class="eye-group left-eyes">
+    <div class="eye"><div class="pupil" id="p1"></div></div>
+    <div class="eye"><div class="pupil" id="p2"></div></div>
+</div>
+
+<div class="eye-group right-eyes">
+    <div class="eye"><div class="pupil" id="p3"></div></div>
+    <div class="eye"><div class="pupil" id="p4"></div></div>
+</div>
 
 <h1>Will you be my girlfriend? ❤️</h1>
 
@@ -109,7 +145,6 @@
     NO 😅
 </button>
 
-<!-- Face expression -->
 <div class="face" id="face">😐</div>
 
 <script>
@@ -122,46 +157,58 @@ function moveButton(){
 }
 
 /* Eye tracking */
-document.addEventListener("mousemove", function(e){
+document.addEventListener("mousemove", function(){
     let btn = document.getElementById("no");
     let rect = btn.getBoundingClientRect();
 
     let btnX = rect.left + rect.width/2;
     let btnY = rect.top + rect.height/2;
 
-    moveEye("p1", btnX, btnY);
-    moveEye("p2", btnX, btnY);
+    ["p1","p2","p3","p4"].forEach(id => moveEye(id, btnX, btnY));
 });
 
 function moveEye(id, x, y){
-    let eye = document.getElementById(id);
-    let rect = eye.parentElement.getBoundingClientRect();
+    let pupil = document.getElementById(id);
+    let rect = pupil.parentElement.getBoundingClientRect();
 
     let dx = x - (rect.left + rect.width/2);
     let dy = y - (rect.top + rect.height/2);
 
     let angle = Math.atan2(dy, dx);
 
-    let radius = 15;
-    eye.style.left = 20 + Math.cos(angle)*radius + "px";
-    eye.style.top = 20 + Math.sin(angle)*radius + "px";
+    let radius = 10;
+    pupil.style.left = 17 + Math.cos(angle)*radius + "px";
+    pupil.style.top = 17 + Math.sin(angle)*radius + "px";
 }
 
 /* Face reactions */
-function happyFace(){
-    document.getElementById("face").textContent = "😊";
-}
+function happyFace(){ document.getElementById("face").textContent="😊"; }
+function sadFace(){ document.getElementById("face").textContent="😢"; }
+function normalFace(){ document.getElementById("face").textContent="😐"; }
 
-function sadFace(){
-    document.getElementById("face").textContent = "😢";
-}
-
-function normalFace(){
-    document.getElementById("face").textContent = "😐";
-}
-
+/* YES click effect */
 function yesClick(){
-    window.location.href="congrats.html";
+    document.body.classList.add("light-bg");
+
+    // Confetti generator
+    for(let i=0;i<100;i++){
+        let conf=document.createElement("div");
+        conf.classList.add("confetti");
+
+        conf.style.left=Math.random()*100+"vw";
+        conf.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
+        conf.style.animationDuration=(Math.random()*2+2)+"s";
+
+        document.body.appendChild(conf);
+
+        setTimeout(()=>conf.remove(),3000);
+    }
+
+    document.getElementById("face").textContent="😍";
+
+    setTimeout(()=>{
+        window.location.href="congrats.html";
+    },2000);
 }
 </script>
 

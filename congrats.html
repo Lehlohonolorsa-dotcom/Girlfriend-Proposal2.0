@@ -3,18 +3,168 @@
 <head>
     <title>Yessss ❤️</title>
     <style>
-        body {text-align:center;font-family:Arial;background:linear-gradient(to bottom,#ff758c,#ff7eb3);color:white;padding:20px;}
-        .gallery img {width:250px;height:300px;margin:10px;border-radius:15px;object-fit:cover;}
+        body {
+            margin:0;
+            text-align:center;
+            font-family:Arial;
+            color:white;
+            padding:20px;
+            overflow:hidden;
+
+            background:linear-gradient(270deg, #ff758c, #ff7eb3, #6a11cb, #2575fc);
+            background-size:800% 800%;
+            animation:gradientMove 10s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% {background-position:0% 50%;}
+            50% {background-position:100% 50%;}
+            100% {background-position:0% 50%;}
+        }
+
+        /* Overlay */
+        .overlay {
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.8);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            z-index:999;
+        }
+
+        .contract {
+            background:white;
+            color:black;
+            padding:30px;
+            border-radius:20px;
+            width:80%;
+            max-width:500px;
+            text-align:center;
+            animation:fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from {opacity:0; transform:scale(0.8);}
+            to {opacity:1; transform:scale(1);}
+        }
+
+        .agree-btn {
+            margin-top:20px;
+            padding:12px 25px;
+            border:none;
+            border-radius:20px;
+            background:#ff4d6d;
+            color:white;
+            font-size:1em;
+            cursor:pointer;
+        }
+
+        /* Signature */
+        .signature {
+            margin-top:20px;
+            font-family:cursive;
+            font-size:24px;
+            border-top:1px solid black;
+            padding-top:10px;
+            width:80%;
+            margin-left:auto;
+            margin-right:auto;
+            white-space:nowrap;
+            overflow:hidden;
+            border-right:2px solid black;
+            animation:typing 3s steps(30) forwards, blink 0.7s infinite;
+        }
+
+        @keyframes typing {
+            from {width:0;}
+            to {width:100%;}
+        }
+
+        @keyframes blink {
+            50% {border-color:transparent;}
+        }
+
+        /* Main hidden content */
+        #mainContent {
+            display:none;
+        }
+
+        .gallery img {
+            width:250px;
+            height:300px;
+            margin:10px;
+            border-radius:15px;
+            object-fit:cover;
+        }
+
+        .vows {
+            max-width:600px;
+            margin:20px auto;
+            font-size:1.2em;
+            line-height:1.6;
+        }
+
     </style>
 </head>
+
 <body>
+
+<!-- CONTRACT -->
+<div class="overlay" id="overlay">
+    <div class="contract">
+        <h2>Relationship Contract 📜❤️</h2>
+
+        <p>
+            I, <b>Seatshogeng Moseri</b>, hereby agree to officially become your girlfriend 
+            and enter into a relationship filled with love, laughter, loyalty, and happiness.<br><br>
+
+            I accept to stay by your side, support you, and grow with you… 
+            <b>from today until eternity.</b> 💖
+        </p>
+
+        <!-- Signature animation -->
+        <div class="signature">Seatshogeng Moseri</div>
+
+        <button class="agree-btn" onclick="acceptContract()">I Agree ❤️</button>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="mainContent">
+
 <h1>Congratulations ❤️🥺</h1>
 <p>You just made me the happiest person alive.</p>
-<div class="gallery">
-<img src="us (1).jpeg">
-<img src="us (2).jpeg">
-<img src="us (3).jpeg">
-<img src="us (4).jpeg">
+
+<div class="vows">
+    I promise to be a loving, loyal, and committed boyfriend.<br><br>
+
+    I will always support you, stand by you, and protect your heart.<br><br>
+
+    I’ll make you laugh when you're sad, hold you when you need comfort,  
+    and remind you every day how special you are.<br><br>
+
+    I choose you — today, tomorrow, and always. 💖
 </div>
+
+<div class="gallery">
+    <img src="us (1).jpeg">
+    <img src="us (2).jpeg">
+    <img src="us (3).jpeg">
+    <img src="us (4).jpeg">
+</div>
+
+</div>
+
+<script>
+function acceptContract(){
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+}
+</script>
+
 </body>
 </html>
